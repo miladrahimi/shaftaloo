@@ -7,7 +7,6 @@ use App\Models\Contribution;
 use App\Models\Transaction;
 use App\Models\User;
 use Auth;
-use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -116,11 +115,11 @@ class TransactionController extends Controller
         }
 
         if ($anyContribution == false) {
-            return back()->with('error', 'No money transferred!');
+            return back()->with('error', 'No money transferred!')->withInput();
         }
 
         if ($sum != 0) {
-            return back()->with('error', 'Transaction must be zero!');
+            return back()->with('error', 'Transaction must be zero!')->withInput();
         }
 
         DB::transaction(function () use ($contributions, $request) {

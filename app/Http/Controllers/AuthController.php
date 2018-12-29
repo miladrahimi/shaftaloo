@@ -40,7 +40,7 @@ class AuthController extends Controller
         if (Auth::attempt($credential)) {
             return redirect(route('transactions'));
         } else {
-            return back()->with('error', 'Incorrect username or password.');
+            return back()->with('error', 'Incorrect username or password.')->withInput();
         }
     }
 

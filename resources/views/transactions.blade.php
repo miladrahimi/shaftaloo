@@ -51,8 +51,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
+                            <th scope="col">Author</th>
                             <th scope="col">Time</th>
-                            <th scope="col">By</th>
                             <th scope="col">Contributions</th>
                             <th scope="col">Operations</th>
                         </tr>
@@ -63,7 +63,7 @@
                                 <td>{{ $transaction->id }}</td>
                                 <td>{{ $transaction->title }}</td>
                                 <td>{{ '@' . $transaction->user->username }}</td>
-                                <td>{{ $jd($transaction->created_at) }}</td>
+                                <td>{!! str_replace(' ', '<br>', $jd($transaction->created_at)) !!}</td>
                                 <td>
                                     @foreach($transaction->contributions as $contribution)
                                         <span class="badge badge-{{ $balance_color($contribution->value) }}">

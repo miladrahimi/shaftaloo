@@ -20,12 +20,12 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('archive_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('user_id', 'transactions_f1')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('archive_id')
+            $table->foreign('archive_id', 'transactions_f2')
                 ->references('id')
                 ->on('archives')
                 ->onDelete('set null');

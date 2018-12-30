@@ -18,6 +18,11 @@ class CreateArchivesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id', 'archives_f1')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

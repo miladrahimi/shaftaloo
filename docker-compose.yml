@@ -19,7 +19,7 @@ services:
 
   php:
     container_name: shaftaloo_php
-    image: miladrahimi/php:7.2.12-fpm-alpine3.8
+    image: miladrahimi/php:7.2-fpm-alpine3.8
     restart: always
     volumes:
     - ./:/app/
@@ -39,15 +39,3 @@ services:
     - 3306
     volumes:
     - ./docker/mariadb/data:/var/lib/mysql
-
-  mysql_test:
-    container_name: shaftaloo_mysql_test
-    image: mysql:5.7.24
-    environment:
-    - MYSQL_DATABASE=${DB_DATABASE:-app}
-    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
-    ports:
-    - 3306
-    restart: always
-    volumes:
-    - ./docker/mariadb/data_test:/var/lib/mysql

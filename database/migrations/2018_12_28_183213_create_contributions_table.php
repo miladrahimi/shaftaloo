@@ -19,16 +19,6 @@ class CreateContributionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->integer('value');
             $table->timestamps();
-
-            $table->foreign('user_id', 'contributions_f1')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('transaction_id', 'contributions_f2')
-                ->references('id')
-                ->on('transactions')
-                ->onDelete('cascade');
         });
     }
 

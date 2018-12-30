@@ -19,9 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_active');
             $table->timestamps();
-
-            $table->unique('username', 'users_u1');
-            $table->index('is_active', 'users_i1');
         });
     }
 

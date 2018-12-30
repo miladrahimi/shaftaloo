@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <input type="number" name="{{ $u->username }}" class="form-control contributor"
-                               placeholder="{{ '@' . $u->username }}" value="{{ old($u->username) }}" min="10"
+                               placeholder="{{ '@' . $u->username }}" value="{{ old($u->username) }}"
                                max="10000000">
                     </div>
 

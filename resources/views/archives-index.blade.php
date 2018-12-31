@@ -9,6 +9,15 @@
                 <div class="card-header">Archives</div>
 
                 <div class="card-body">
+                    @include('_alerts')
+
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('archives.perform') }}" class="btn btn-danger"
+                           onclick="return confirm('Archive transactions?')">.: Archive :.</a>
+                    @endif
+
+                    <hr>
+
                     <table class="table table-sm table-bordered table-striped table-responsive-sm">
                         <thead>
                         <tr>
@@ -25,7 +34,18 @@
                                 <td>{{ $archive->id }}</td>
                                 <td>{{ '@' . $archive->user->username }}</td>
                                 <td>{{ $archive->created_at }}</td>
-                                <td>{{ $archive->description ?: 'N/A' }}</td>
+                                <td>
+                                    @if($archive->description)
+                                        @foreach(json_decode($archive->description) as $item)
+                                            <span class="badge badge-{{ $balance_color($item->balance) }}">
+                                                {{ '@' . $user_from_id($item->user_id)->username }}:
+                                                {{ $item->balance }}
+                                            </span>
+                                        @endforeach
+                                    @else
+                                        <span>N/A</span>
+                                    @endif
+                                </td>
                                 <td>{{ $archive->id }}</td>
                             </tr>
                         @endforeach

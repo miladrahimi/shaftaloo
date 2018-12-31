@@ -27,13 +27,13 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('transactions.add');
         Route::post('add', 'TransactionController@postAdd');
         Route::delete('delete', 'TransactionController@delete');
-        Route::get('archive', 'TransactionController@getArchive')
-            ->name('transactions.archive');
     });
 
     Route::group(['prefix' => 'archives'], function () {
         Route::get('index', 'ArchivesController@getIndex')
             ->name('archives.index');
+        Route::get('perform', 'ArchivesController@getPerform')
+            ->name('archives.perform');
     });
 
     Route::group(['prefix' => 'users'], function () {

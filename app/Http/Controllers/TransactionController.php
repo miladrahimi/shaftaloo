@@ -43,22 +43,11 @@ class TransactionController extends Controller
             }
         }
 
-        $balanceColor = function (int $balance): string {
-            if ($balance > 0) {
-                return 'success';
-            } elseif ($balance < 0) {
-                return 'warning';
-            } else {
-                return 'light';
-            }
-        };
-
         return view('transactions-index', [
             'users' => $users,
             'transactions' => $transactions,
             'balances' => $balances,
             'contributions' => $contributions,
-            'balance_color' => $balanceColor,
         ]);
     }
 
@@ -142,22 +131,6 @@ class TransactionController extends Controller
         if ($transaction && $transaction->user_id == Auth::id()) {
             $transaction->delete();
         }
-
-        return back();
-    }
-
-    /**
-     * @throws \Throwable
-     */
-    public function getArchive()
-    {
-        DB::transaction(function () {
-            $archive = new Archive();
-            $archive->user_id = Auth::id();
-            $archive->save();
-
-            Transaction::whereArchiveId(null)->update(['archive_id' => $archive->id]);
-        });
 
         return back();
     }

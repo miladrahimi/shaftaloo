@@ -20,7 +20,7 @@ class TransactionController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getTransactions()
+    public function getIndex()
     {
         $users = User::all();
 
@@ -135,7 +135,7 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function deleteTransaction(Request $request)
+    public function delete(Request $request)
     {
         $transaction = Transaction::find($request->input('id'));
 

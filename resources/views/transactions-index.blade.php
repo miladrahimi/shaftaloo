@@ -33,8 +33,9 @@
                     </table>
 
                     <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
+                    <a href="{{ route('archives.index') }}" class="btn btn-secondary">Archives</a>
                     @if(Auth::user()->isAdmin())
-                        <a href="{{  route('transactions.archive') }}" class="btn btn-secondary float-right"
+                        <a href="{{  route('transactions.archive') }}" class="btn btn-danger"
                            onclick="return confirm('Archive transactions?')">Archive</a>
                     @endif
                 </div>

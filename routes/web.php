@@ -21,14 +21,19 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'transactions'], function () {
-        Route::get('index', 'TransactionController@getTransactions')
+        Route::get('index', 'TransactionController@getIndex')
             ->name('transactions.index');
         Route::get('add', 'TransactionController@getAdd')
             ->name('transactions.add');
         Route::post('add', 'TransactionController@postAdd');
-        Route::delete('delete', 'TransactionController@deleteTransaction');
+        Route::delete('delete', 'TransactionController@delete');
         Route::get('archive', 'TransactionController@getArchive')
             ->name('transactions.archive');
+    });
+
+    Route::group(['prefix' => 'archives'], function () {
+        Route::get('index', 'ArchivesController@getIndex')
+            ->name('archives.index');
     });
 
     Route::group(['prefix' => 'users'], function () {

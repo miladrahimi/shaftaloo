@@ -16,7 +16,7 @@ class CreateArchivesTable extends Migration
         Schema::create('archives', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id', 'archives_f1')

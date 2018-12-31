@@ -23,6 +23,7 @@ class TransactionController extends Controller
     public function getTransactions()
     {
         $users = User::all();
+
         $transactions = Transaction::with('contributions')
             ->whereArchiveId(null)
             ->get();
@@ -52,7 +53,7 @@ class TransactionController extends Controller
             }
         };
 
-        return view('transactions', [
+        return view('transactions-index', [
             'users' => $users,
             'transactions' => $transactions,
             'balances' => $balances,
@@ -62,31 +63,16 @@ class TransactionController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function deleteTransaction(Request $request)
-    {
-        $transaction = Transaction::find($request->input('id'));
-
-        if ($transaction && $transaction->user_id == Auth::id()) {
-            $transaction->delete();
-        }
-
-        return back();
-    }
-
-    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getAdd()
     {
-        $users = User::all();
+        $users = User::orderBy('username')->get()->reject(function (User $user) {
+            return $user->id == Auth::id();
+        })->prepend(Auth::user());
 
         return view('transactions-add', [
             'users' => $users,
-            'u' => Auth::user(),
         ]);
     }
 
@@ -115,7 +101,7 @@ class TransactionController extends Controller
         }
 
         if ($anyContribution == false) {
-            return back()->with('error', 'No money transferred!')->withInput();
+            return back()->with('error', 'At least two contribution is needed!')->withInput();
         }
 
         if ($sum != 0) {
@@ -142,6 +128,22 @@ class TransactionController extends Controller
         });
 
         return back()->with('success', 'Transaction added.');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function deleteTransaction(Request $request)
+    {
+        $transaction = Transaction::find($request->input('id'));
+
+        if ($transaction && $transaction->user_id == Auth::id()) {
+            $transaction->delete();
+        }
+
+        return back();
     }
 
     /**

@@ -14,7 +14,7 @@
                         <tr>
                             <th scope="col">User</th>
                             <th scope="col">Balance</th>
-                            <th scope="col">Contributions</th>
+                            <th scope="col">C</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,9 +32,11 @@
                         </tbody>
                     </table>
 
-                    <a href="{{ route('transactions.add') }}" class="btn btn-secondary">Add Transaction</a>
-                    <a href="{{ $is_admin(Auth::user()) ? route('transactions.archive') : '#' }}"
-                       class="btn btn-danger float-right" onclick="return confirm('Archive transactions?')">Archive</a>
+                    <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{  route('transactions.archive') }}" class="btn btn-secondary float-right"
+                           onclick="return confirm('Archive transactions?')">Archive</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -54,7 +56,7 @@
                             <th scope="col">Author</th>
                             <th scope="col">Time</th>
                             <th scope="col">Contributions</th>
-                            <th scope="col">Operations</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,12 +73,13 @@
                                         </span>
                                     @endforeach
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @if($transaction->user_id == Auth::id())
-                                        <form method="post" action="{{ route('transactions') }}">
+                                        <form method="post" action="{{ route('transactions.index') }}">
                                             {{ method_field('delete') }} {{ csrf_field() }}
                                             <input type="hidden" name="id" value="{{ $transaction->id }}">
-                                            <input type="submit" value="Delete" class="btn btn-danger"
+                                            <input type="submit" value="&cross;" class="btn btn-danger"
+                                                   style="border-radius: 50%"
                                                    onclick="return confirm('Delete transaction?')">
                                         </form>
                                     @endif
@@ -86,6 +89,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="card-footer text-muted">&copy; {{ date('Y ') . config('app.name') }}</div>
             </div>
         </div>
     </div>

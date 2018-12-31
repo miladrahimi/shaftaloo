@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="icon" href="{{ asset('favicon.ico?md5=ffc8beb2a018b4aca71c3ab08d8fe540') }}" type="image/x-icon">
+    @yield('head')
 </head>
 <body>
 
@@ -20,7 +21,7 @@
         <a class="btn btn-outline-primary mr-1" href="{{ route('users.profile') }}">
             {{ '@' . Auth::user()->username }}
         </a>
-        <a class="btn btn-outline-secondary" href="{{ route('auth.sign-out') }}">Sign out</a>
+        <a class="btn btn-outline-secondary" href="{{ route('users.sign-out') }}">Sign out</a>
     </div>
 </div>
 

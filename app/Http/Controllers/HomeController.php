@@ -16,8 +16,8 @@ class HomeController extends Controller
      */
     public function getHome()
     {
-        if(Auth::hasUser()) {
-            return redirect(route('transactions'));
+        if (Auth::hasUser()) {
+            return redirect(route('transactions.index'));
         } else {
             return redirect(route('auth.sign-in'));
         }

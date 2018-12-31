@@ -29,22 +29,29 @@ class UsersController extends Controller
     public function postProfile(Request $request)
     {
         $this->validate($request, [
-            'old_password' => 'required',
-            'new_password' => 'nullable|min:6|max:16',
+            'password' => 'nullable|confirmed|min:6|max:16',
         ]);
 
         $user = User::find(Auth::id());
 
-        if (Hash::check($request->input('old_password'), $user->password) == false) {
-            return back()->with('error', 'Old password is incorrect.');
-        }
-
-        if ($request->input('new_password')) {
-            $user->password = Hash::make($request->input('new_password'));
+        if ($password = $request->input('password')) {
+            $user->password = Hash::make($password);
         }
 
         $user->save();
 
-        return back()->with('success', 'User updated.');
+        return back()->with('success', 'Your profile updated.');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getSignOut()
+    {
+        if (Auth::hasUser()) {
+            Auth::logout();
+        }
+
+        return redirect(route('auth.sign-in'));
     }
 }

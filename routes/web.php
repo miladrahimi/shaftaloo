@@ -12,22 +12,30 @@
 */
 
 Route::get('/', 'HomeController@getHome');
-Route::get('/auth/sign-in', 'AuthController@getSignIn')->name('auth.sign-in');
-Route::post('/auth/sign-in', 'AuthController@postSignIn');
-Route::get('/auth/sign-out', 'AuthController@getSignOut')->name('auth.sign-out');
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/auth/sign-in', 'AuthController@getSignIn')
+        ->name('auth.sign-in');
+    Route::post('/auth/sign-in', 'AuthController@postSignIn');
+});
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/transactions', 'TransactionController@getTransactions')
-        ->name('transactions');
-    Route::post('/transactions', 'TransactionController@postTransaction');
-    Route::get('/transactions/add', 'TransactionController@getAdd')
-        ->name('transactions.add');
-    Route::post('/transactions/add', 'TransactionController@postAdd');
-    Route::delete('/transactions', 'TransactionController@deleteTransaction');
-    Route::get('/transactions/archive', 'TransactionController@getArchive')
-        ->name('transactions.archive');
+    Route::group(['prefix' => 'transactions'], function () {
+        Route::get('index', 'TransactionController@getTransactions')
+            ->name('transactions.index');
+        Route::get('add', 'TransactionController@getAdd')
+            ->name('transactions.add');
+        Route::post('add', 'TransactionController@postAdd');
+        Route::delete('delete', 'TransactionController@deleteTransaction');
+        Route::get('archive', 'TransactionController@getArchive')
+            ->name('transactions.archive');
+    });
 
-    Route::get('/users/profile', 'UsersController@getProfile')
-        ->name('users.profile');
-    Route::post('/users/profile', 'UsersController@postProfile');
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('profile', 'UsersController@getProfile')
+            ->name('users.profile');
+        Route::post('profile', 'UsersController@postProfile');
+        Route::get('sign-out', 'UsersController@getSignOut')
+            ->name('users.sign-out');
+    });
 });

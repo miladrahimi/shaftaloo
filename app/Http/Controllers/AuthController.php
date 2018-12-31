@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function getSignIn()
     {
-        return view('sign-in');
+        return view('auth-sign-in');
     }
 
     /**
@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'username' => ['required'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
 
         $credential = [
@@ -38,21 +38,9 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credential)) {
-            return redirect(route('transactions'));
+            return redirect(route('transactions.index'));
         } else {
             return back()->with('error', 'Incorrect username or password.')->withInput();
         }
-    }
-
-    /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function getSignOut()
-    {
-        if (Auth::hasUser()) {
-            Auth::logout();
-        }
-
-        return redirect(route('auth.sign-in'));
     }
 }

@@ -26,5 +26,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    /**
+     * @inheritdoc
+     */
+    public function setRememberToken($token)
+    {
+        // DISABLED!
+    }
 
+    /**
+     * Is admin?
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->username == 'milad';
+    }
 }

@@ -18,12 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('jd', function(Carbon $carbon) {
+        View::share('jd', function (Carbon $carbon) {
             return Jalalian::fromCarbon($carbon);
-        });
-
-        View::share('is_admin', function(User $user) {
-            return $user->username == 'milad';
         });
     }
 

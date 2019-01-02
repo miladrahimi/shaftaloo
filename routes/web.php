@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('add', 'TransactionController@getAdd')
             ->name('transactions.add');
         Route::post('add', 'TransactionController@postAdd');
-        Route::delete('delete', 'TransactionController@delete');
+        Route::delete('delete', 'TransactionController@delete')
+            ->name('transactions.delete');
     });
 
     Route::group(['prefix' => 'archives'], function () {

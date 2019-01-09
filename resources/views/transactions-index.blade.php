@@ -72,7 +72,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if($transaction->user_id == Auth::id())
-                                        <form method="post" action="{{ route('transactions.index') }}">
+                                        <form method="post" action="{{ route('transactions.delete') }}">
                                             {{ method_field('delete') }} {{ csrf_field() }}
                                             <input type="hidden" name="id" value="{{ $transaction->id }}">
                                             <input type="submit" value="&cross;" class="btn btn-danger"

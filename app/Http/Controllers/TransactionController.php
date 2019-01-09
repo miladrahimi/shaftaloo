@@ -94,7 +94,7 @@ class TransactionController extends Controller
         }
 
         if ($sum != 0) {
-            return back()->with('error', 'Transaction must be zero!')->withInput();
+            return back()->with('error', 'Transaction sum is: ' . $sum)->withInput();
         }
 
         DB::transaction(function () use ($contributions, $request) {

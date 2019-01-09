@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@getHome');
+Route::get('/info', 'HomeController@getInfo');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/auth/sign-in', 'AuthController@getSignIn')

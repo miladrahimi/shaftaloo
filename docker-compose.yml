@@ -23,7 +23,7 @@ services:
     restart: always
     volumes:
     - ./:/app/
-    - ./docker/php/php.ini-${APP_ENV:-testing}:/usr/local/etc/php/php.ini
+    - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     working_dir: /app/
     depends_on:
     - mysql

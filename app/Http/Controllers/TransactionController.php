@@ -66,7 +66,7 @@ class TransactionController extends Controller
         DB::transaction(function () use ($contributions, $request) {
             $transaction = new Transaction();
             $transaction->user_id = Auth::id();
-            $transaction->title = $request->input('title');
+            $transaction->title = strtolower($request->input('title'));
             $transaction->save();
 
             foreach ($contributions as $userId => $value) {

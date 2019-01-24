@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" placeholder="Title"
                                title="What I have paid for" value="{{ old('title') }}" required
-                               pattern="[a-z0-9\s]{2,}">
+                               pattern="[a-zA-Z0-9\s]{2,}">
                     </div>
 
                     <div class="input-group mb-3">

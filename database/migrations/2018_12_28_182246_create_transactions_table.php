@@ -16,13 +16,15 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('title');
+            $table->string('title')->index();
             $table->timestamps();
 
             $table->foreign('user_id', 'transactions_f1')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->index(['user_id', 'title']);
         });
     }
 

@@ -2,6 +2,11 @@
 
 @section('title', 'Add Transaction')
 
+@section('head')
+    <link rel="stylesheet" href="{{ asset('vendor/easyautocomplete/easy-autocomplete.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/easyautocomplete/easy-autocomplete.themes.min.css') }}">
+@endsection
+
 @section('content')
     <div class="row justify-content-center">
         <div class="col">
@@ -14,7 +19,7 @@
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" placeholder="Title"
                                title="What I have paid for" value="{{ old('title') }}" required
-                               pattern="[A-Za-z0-9\.\-\s\,]{2,}">
+                               pattern="[a-z0-9\s]{2,}">
                     </div>
 
                     <div class="input-group mb-3">
@@ -55,7 +60,21 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('vendor/easyautocomplete/jquery.easy-autocomplete.min.js') }}"></script>
     <script>
+        $("[name=title]").easyAutocomplete({
+            url: "{{ route('transactions.titles', ['r' => str_random(128)]) }}",
+            list: {
+                maxNumberOfElements: 5,
+                match: {
+                    enabled: true
+                },
+                sort: {
+                    enabled: true
+                }
+            }
+        });
+
         // Find the related field to the given checkbox
         let relatedField = function (obj) {
             let id = obj.attr('id');

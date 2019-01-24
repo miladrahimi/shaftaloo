@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Auth;
 use DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -26,7 +27,7 @@ class TransactionController extends Controller
         })->prepend(Auth::user());
 
         return view('transactions-add', [
-            'users' => $users,
+            'users' => $users
         ]);
     }
 
@@ -98,5 +99,19 @@ class TransactionController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getTitles()
+    {
+        $titles = Transaction::select(['title'])
+            ->distinct()
+            ->orderBy('title')
+            ->get()
+            ->pluck('title');
+
+        return new JsonResponse($titles);
     }
 }

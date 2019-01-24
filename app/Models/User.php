@@ -33,14 +33,4 @@ class User extends Authenticatable
     {
         // DISABLED!
     }
-
-    /**
-     * Is admin?
-     *
-     * @return bool
-     */
-    public function isAdmin(): bool
-    {
-        return $this->username == 'milad';
-    }
 }

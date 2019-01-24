@@ -3,7 +3,9 @@
 @section('title', 'Transactions')
 
 @section('content')
-    <div class="row justify-content-center mt-2">
+    <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
+
+    <div class="row justify-content-center my-2">
         <div class="col">
             <div class="card">
                 <div class="card-header">Summary</div>
@@ -14,7 +16,7 @@
                         <tr>
                             <th scope="col">User</th>
                             <th scope="col">Balance</th>
-                            <th scope="col">C</th>
+                            <th scope="col">Contributions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,9 +33,6 @@
                         @endforeach
                         </tbody>
                     </table>
-
-                    <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
-                    <a href="{{ route('archives.index') }}" class="btn btn-secondary">Archives</a>
                 </div>
             </div>
         </div>

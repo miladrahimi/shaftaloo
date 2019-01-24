@@ -11,7 +11,7 @@
                 <form class="card-body" method="post" action="{{ route('users.profile') }}">
                     @include('_alerts')
 
-                    <p>Username: {{ '@' . $u->username }}</p>
+                    <p>Username: <span class="text-primary">{{ '@' . $u->username }}</span></p>
 
                     <hr>
 
@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Update">
-                        <a href="{{ route('transactions.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Dashboard</a>
                     </div>
 
                     {{ csrf_field() }}

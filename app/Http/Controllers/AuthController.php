@@ -38,7 +38,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credential)) {
-            return redirect(route('transactions.index'));
+            return redirect(route('dashboard'));
         } else {
             return back()->with('error', 'Incorrect username or password.')->withInput();
         }

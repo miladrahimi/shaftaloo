@@ -41,8 +41,8 @@
                     @endforeach
 
                     <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Add">
-                        <a href="{{ route('transactions.index') }}" class="btn btn-secondary">Back to transactions</a>
+                        <input type="submit" class="btn btn-primary" value="Add Transaction">
+                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Dashboard</a>
                     </div>
 
                     {{ csrf_field() }}

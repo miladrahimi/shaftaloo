@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Archive;
 use App\Models\Contribution;
 use App\Models\Transaction;
 use App\Models\User;
@@ -17,40 +16,6 @@ use Illuminate\Http\Request;
  */
 class TransactionController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getIndex()
-    {
-        $users = User::all();
-
-        $transactions = Transaction::with('contributions')
-            ->whereArchiveId(null)
-            ->get();
-
-        $balances = $contributions = [];
-        foreach ($transactions as $transaction) {
-            /** @var Contribution $contribution */
-            foreach ($transaction->contributions as $contribution) {
-                $userId = $contribution->user_id;
-
-                if (isset($balances[$userId]) == false) {
-                    $balances[$userId] = $contributions[$userId] = 0;
-                }
-
-                $balances[$userId] += $contribution->value;
-                $contributions[$userId]++;
-            }
-        }
-
-        return view('transactions-index', [
-            'users' => $users,
-            'transactions' => $transactions,
-            'balances' => $balances,
-            'contributions' => $contributions,
-        ]);
-    }
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

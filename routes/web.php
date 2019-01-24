@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'HomeController@getHome');
-Route::get('/info', 'HomeController@getInfo');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/auth/sign-in', 'AuthController@getSignIn')
@@ -21,21 +20,15 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', 'DashboardController@getDashboard')
+        ->name('dashboard');
+
     Route::group(['prefix' => 'transactions'], function () {
-        Route::get('index', 'TransactionController@getIndex')
-            ->name('transactions.index');
         Route::get('add', 'TransactionController@getAdd')
             ->name('transactions.add');
         Route::post('add', 'TransactionController@postAdd');
         Route::delete('delete', 'TransactionController@delete')
             ->name('transactions.delete');
-    });
-
-    Route::group(['prefix' => 'archives'], function () {
-        Route::get('index', 'ArchivesController@getIndex')
-            ->name('archives.index');
-        Route::get('perform', 'ArchivesController@getPerform')
-            ->name('archives.perform');
     });
 
     Route::group(['prefix' => 'users'], function () {

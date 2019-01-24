@@ -24,7 +24,6 @@ services:
     working_dir: /app/
     volumes:
     - ./:/app/
-    - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
     - mariadb
 

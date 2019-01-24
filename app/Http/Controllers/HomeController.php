@@ -22,4 +22,9 @@ class HomeController extends Controller
             return redirect(route('auth.sign-in'));
         }
     }
+
+    public function getInfo()
+    {
+        phpinfo();
+    }
 }

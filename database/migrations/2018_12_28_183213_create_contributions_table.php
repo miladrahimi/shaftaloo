@@ -20,12 +20,12 @@ class CreateContributionsTable extends Migration
             $table->integer('value');
             $table->timestamps();
 
-            $table->foreign('user_id', 'contributions_f1')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('transaction_id', 'contributions_f2')
+            $table->foreign('transaction_id')
                 ->references('id')
                 ->on('transactions')
                 ->onDelete('cascade');

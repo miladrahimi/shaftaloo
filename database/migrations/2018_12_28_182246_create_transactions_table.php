@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('title')->index();
             $table->timestamps();
 
-            $table->foreign('user_id', 'transactions_f1')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

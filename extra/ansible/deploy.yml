@@ -28,7 +28,11 @@
       command: "docker exec shaftaloo_php composer install"
 
     - name: Wait until application is ready
-      raw: while true; do docker exec shaftaloo_mariadb mysqlshow -psecret 'app' &>/dev/null && break || echo 'wait'; done
+      raw: >
+        while true; do
+        docker exec shaftaloo_mariadb
+        mysqlshow -p{{ db_password | default('secret') }} 'app' &>/dev/null && break || echo 'wait';
+        done
 
     - name: Down the app
       command: "docker exec shaftaloo_php php /app/artisan down"

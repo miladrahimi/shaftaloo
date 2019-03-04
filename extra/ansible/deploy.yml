@@ -1,5 +1,5 @@
 ---
-- hosts: defaults
+- hosts: all
   gather_facts: false
   become: true
   remote_user: root
@@ -7,15 +7,34 @@
     - name: Pull the last verion of project from Github
       git:
         repo: "https://github.com/miladrahimi/shaftaloo"
-        dest: "{{ remote_dir }}"
+        dest: "{{ remote_dir | default('/var/apps/shaftaloo') }}"
 
     - name: Create .env if not exists
       copy:
-        src: "{{ remote_dir }}/.env.example"
-        dest: "{{ remote_dir }}/.env"
+        src: "{{ remote_dir | default('/var/apps/shaftaloo') }}/.env.example"
+        dest: "{{ remote_dir | default('/var/apps/shaftaloo') }}/.env"
         remote_src: yes
         force: no
 
-    - name: Down the current instance of the app
-      docker_service:
-        project_src: "{{ remote_dir }}"
+    - name: Change storage permission to 755
+      file:
+        path: "{{ remote_dir | default('/var/apps/shaftaloo') }}/storage"
+        mode: 755
+
+    - name: Run the app via docker-compose
+      command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose up -d
+
+    - name: Install Compose depencencies
+      command: "docker exec shaftaloo_php composer install"
+
+    - name: Wait until application is ready
+      raw: while true; do docker exec shaftaloo_mariadb mysqlshow -psecret 'app' &>/dev/null && break || echo 'wait'; done
+
+    - name: Down the app
+      command: "docker exec shaftaloo_php php /app/artisan down"
+
+    - name: Run migrations
+      command: "docker exec shaftaloo_php php /app/artisan migrate"
+
+    - name: Up the app
+      command: "docker exec shaftaloo_php php /app/artisan up"

@@ -8,10 +8,10 @@ services:
     working_dir: /app/
     volumes:
     - ./:/app/
-    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    - ./docker/nginx/logs/:/var/log/nginx/
+    - ./extra/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    - ./extra/docker/nginx/logs/:/var/log/nginx/
     ports:
-    - ${APP_PORT:-8081}:80
+    - ${APP_PORT}:80
     environment:
     - NGINX_HOST=localhost
     depends_on:
@@ -32,9 +32,9 @@ services:
     image: mariadb:10.2.18
     restart: always
     environment:
-    - MYSQL_DATABASE=${DB_DATABASE:-app}
-    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
+    - MYSQL_DATABASE=${DB_DATABASE}
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
-    - ${DB_EXPOSED_PORT:-33061}:3306
+    - ${DB_EXPOSED_PORT}:3306
     volumes:
-    - ./docker/mariadb/data:/var/lib/mysql
+    - ./extra/docker/mariadb/data:/var/lib/mysql

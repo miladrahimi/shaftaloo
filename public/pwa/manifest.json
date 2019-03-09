@@ -1,8 +1,8 @@
 {
   "name": "Shaftaloo!",
   "short_name": "Shaftaloo!",
-  "theme_color": "#2196f3",
-  "background_color": "#e1e5e9",
+  "theme_color": "#FFAB91",
+  "background_color": "#FFFFF",
   "display": "fullscreen",
   "orientation": "portrait",
   "Scope": "/pwa/",

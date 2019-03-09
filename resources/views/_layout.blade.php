@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="icon" href="{{ asset('favicon.ico?md5=ffc8beb2a018b4aca71c3ab08d8fe540') }}" type="image/x-icon">
+    <link rel="manifest" href="{{ asset('manifest.json?md5=ba4a3d56fd7a6dfe0479fb816b1c846a') }}">
     @yield('head')
 </head>
 <body>

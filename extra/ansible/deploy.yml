@@ -17,10 +17,7 @@
         force: no
 
     - name: Change storage permission to 755
-      file:
-        path: "{{ remote_dir | default('/var/apps/shaftaloo') }}/storage"
-        mode: 755
-        recurse: yes
+      command: chmod -R 0755 {{ remote_dir | default('/var/apps/shaftaloo') }}/storage
 
     - name: Run the app via docker-compose
       command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose up -d

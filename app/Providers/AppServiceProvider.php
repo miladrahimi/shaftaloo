@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Morilog\Jalali\Jalalian;
@@ -11,6 +10,16 @@ use View;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
     /**
      * Bootstrap any application services.
      *
@@ -35,15 +44,5 @@ class AppServiceProvider extends ServiceProvider
         View::share('user_from_id', function (int $id): User {
             return User::findOrFail($id);
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

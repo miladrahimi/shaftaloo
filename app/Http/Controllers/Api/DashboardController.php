@@ -36,10 +36,9 @@ class DashboardController extends ApiController
 
         /** @var User $user */
         foreach ($users as $user) {
-            $results[] = [
-                'id' => $user->id,
+            $results[$user->id] = [
                 'username' => $user->username,
-                'balance' => $balances[$user->id],
+                'value' => $balances[$user->id],
                 'contributions' => $contributions[$user->id],
             ];
         }

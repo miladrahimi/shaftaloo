@@ -5,23 +5,44 @@ $(document).ready(function () {
         },
     });
 
+    let app = new Vue({
+        el: '#app',
+        data: {
+            user: {},
+            balances: [],
+            transactions: [],
+        },
+        methods: {
+            loadingHide: function () {
+                $('#loading').fadeOut('slow');
+            },
+            color: function (value, prefix = 'badge-') {
+                return prefix + (value > 0 ? 'success' : 'warning')
+            },
+        },
+    });
+
     $.ajax({
         method: 'get',
         url: '/api/v1/users/profile',
-    }).done(function (data) {
-        $('#username').html('@' + data.username);
-        $('#loading').fadeOut('slow');
-    }).fail(function () {
+    }).done(function (user) {
+        app.user = user;
+        app.loadingHide();
+    }).fail(function (data) {
+        if (data.status === 401) {
+            window.location.href = "sign-in.html";
+        }
+
         console.log(data);
-        // window.location.href = "sign-in.html";
     });
 
     $.ajax({
         method: 'get',
         url: '/api/v1/dashboard',
     }).done(function (data) {
-
-        console.log(data);
+        app.balances = data.balances;
+        app.transactions = data.transactions;
+        console.log(data.transactions);
     }).fail(function () {
         console.log(data);
     });

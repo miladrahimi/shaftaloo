@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="css/general.css?md5=9009df3567872e107309546a742df660">
-    <link rel="stylesheet" href="css/index.css?md5=83f4438003411cf93497202b9056d474">
+    <link rel="stylesheet" href="css/general.css?md5=806bacf4f84616ec88126df6478ce1a6">
+    <link rel="stylesheet" href="css/index.css?md5=80cc98ff7690b3a3c1595ef427d2d2ea">
     <link rel="icon" href="../favicon.ico?md5=ffc8beb2a018b4aca71c3ab08d8fe540" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="128x128" href="img/logo.png">
     <link rel="manifest" href="manifest.json?md5=9a60124d2d17baa01e0e0117de6ec83e">
@@ -17,36 +17,74 @@
 
 <main id="loading"></main>
 
-<main id="dashboard" class="container-fluid">
+<main id="app" class="container-fluid">
     <div class="row">
         <div class="col-6 p-0">
-            <div id="username">@username</div>
+            <div class="username">@{{ user.username }}</div>
         </div>
         <div class="col-6 p-0">
-            <div id="sign-out">Sign Out</div>
+            <div class="sign-out">Sign Out</div>
         </div>
     </div>
 
     <div class="row mt-3">
-        <div class="col table-responsive-sm">
-            <table class="table table-sm table-bordered table-striped" id="balances">
+        <div class="col">
+            <table class="table table-sm table-bordered table-striped table-responsive-sm">
                 <thead>
                 <tr>
-                    <th scope="col">User</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Balance</th>
                     <th scope="col">Contributions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr v-for="balance in balances">
+                    <td>@{{ balance.username }}</td>
+                    <td>
+                        <span class="badge" v-bind:class="color(balance.value)">
+                            {{ balance.value }}
+                        </span>
+                    </td>
+                    <td>{{ balance.contributions }}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <table class="table table-sm table-bordered table-striped table-responsive-sm">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Contributions</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="t in transactions">
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>@{{ balances[t.user_id].username }}</td>
+                    <td>{{ t.created_at }}</td>
+                    <td>
+                        <span class="badge" v-for="c of t.contributions" v-bind:class="color(c.value)">
+                            @{{ balances[c.user_id].username }}:{{ c.value }}
+                        </span>
+                    </td>
+                    <td>
+                        <input v-if="t.user_id == user.id" type="submit" value="&cross;" class="btn btn-danger delete">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </main>
 
 <!-- Scripts -->
@@ -58,6 +96,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="js/index.js?md5=753c68f243ab94d7c874116ae8dea1ea"></script>
+<script src="js/index.js?md5=09cb88a9e7ac1ad76abdcb91f2045409"></script>
 </body>
 </html>

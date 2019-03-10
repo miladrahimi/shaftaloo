@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('#loading').fadeOut('slow');
+
     window.error = function (message) {
         $('#error').html(message);
         $('#error-container').slideDown('fast');

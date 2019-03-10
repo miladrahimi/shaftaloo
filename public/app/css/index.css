@@ -1,0 +1,11 @@
+#username {
+    display: block;
+    background-color: rgb(255, 171, 145);
+    text-align: center;
+}
+
+#sign-out {
+    display: block;
+    background-color: rgb(230, 230, 230);
+    text-align: center;
+}

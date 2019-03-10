@@ -1,3 +1,7 @@
+*, .btn {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #loading {
     position: absolute;
     top: 0;
@@ -20,5 +24,16 @@
     left: 0;
     width: 100%;
     height: 30px;
-    background: linear-gradient(to top, rgba(250,250,250,0.1), transparent);
+    background: linear-gradient(to top, rgba(250, 250, 250, 0.1), transparent);
+}
+
+.btn-peach, .btn-peach:hover, .btn-peach:disabled {
+    color: white;
+    border-color: rgb(255, 171, 145);
+    background-color: rgb(255, 171, 145);
+}
+
+.btn-peach:disabled {
+    border-color: rgba(255, 171, 145, 0.7);
+    background-color: rgba(255, 171, 145, 0.7);
 }

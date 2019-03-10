@@ -14,5 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/profile');
+    Route::get('dashboard', 'Api\DashboardController@getDashboard');
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('profile', 'Api\UsersController@getProfile');
+    });
 });

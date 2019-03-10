@@ -18,7 +18,7 @@ class DashboardController extends ApiController
         $users = User::all();
 
         /** @var Transaction[] $transactions */
-        $transactions = Transaction::with('contributions')->get();
+        $transactions = Transaction::with('contributions')->orderBy('id', 'desc')->get();
 
         $balances = $contributions = [];
         foreach ($users as $user) {
@@ -32,11 +32,21 @@ class DashboardController extends ApiController
             }
         }
 
+        $results = [];
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            $results[] = [
+                'id' => $user->id,
+                'username' => $user->username,
+                'balance' => $balances[$user->id],
+                'contributions' => $contributions[$user->id],
+            ];
+        }
+
         return new JsonResponse([
-            'users' => $users,
+            'balances' => $results,
             'transactions' => $transactions,
-            'balances' => $balances,
-            'contributions' => $contributions,
         ]);
     }
 }

@@ -1,50 +1,48 @@
 {
   "name": "Shaftaloo!",
   "short_name": "Shaftaloo!",
-  "theme_color": "#FFAB91",
-  "background_color": "#FFFFF",
   "display": "fullscreen",
   "orientation": "portrait",
   "Scope": "/app/",
   "start_url": "/app/",
   "icons": [
     {
-      "src": "/app/icons/icon-72x72.png",
+      "src": "/app/img/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-96x96.png",
+      "src": "/app/img/icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-128x128.png",
+      "src": "/app/img/icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-144x144.png",
+      "src": "/app/img/icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-152x152.png",
+      "src": "/app/img/icons/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-192x192.png",
+      "src": "/app/img/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-384x384.png",
+      "src": "/app/img/icons/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png"
     },
     {
-      "src": "/app/icons/icon-512x512.png",
+      "src": "/app/img/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

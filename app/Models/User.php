@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * App\Models\User
@@ -26,11 +27,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
+
     /**
      * @inheritdoc
      */
     public function setRememberToken($token)
     {
         // DISABLED!
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findForPassport($username)
+    {
+        return $this->where('username', $username)->first();
     }
 }

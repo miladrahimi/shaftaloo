@@ -19,4 +19,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('profile', 'Api\UsersController@getProfile');
     });
+
+    Route::group(['prefix' => 'transactions'], function () {
+        Route::get('titles', 'Api\TransactionController@getTitles');
+        Route::post('', 'Api\TransactionController@postAdd');
+        Route::delete('', 'Api\TransactionController@delete');
+    });
 });

@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $users = User::all();
 
         /** @var Transaction[] $transactions */
-        $transactions = Transaction::with('contributions')->get();
+        $transactions = Transaction::with('contributions')->latest()->get();
 
         $balances = $contributions = [];
         foreach ($users as $user) {

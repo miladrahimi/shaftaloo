@@ -1,4 +1,4 @@
-FROM dockage/php:7.2.10-fpm-alpine3.8
+FROM dockage/php:7.2.10-cli-alpine3.8
 
 ENV APP_INSTALL_DIR="/app"
 
@@ -45,5 +45,7 @@ RUN mkdir -p /root/.ssh ${APP_INSTALL_DIR} \
         /etc/php7/php.ini \
     # Configure SSH known_hosts
     && ssh-keyscan -H github.com gitlab.com gitlab.snapp.ir >> /root/.ssh/known_hosts
+
+COPY assets/root/ /
 
 WORKDIR ${APP_INSTALL_DIR}

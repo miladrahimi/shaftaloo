@@ -1,0 +1,7 @@
+[template]
+src = "/../../../app/.env.tmpl"
+dest = "/app/.env"
+mode = "0644"
+keys = [
+  "/snapp"
+]

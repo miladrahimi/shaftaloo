@@ -25,16 +25,6 @@ services:
       - mariadb
       - redis
 
-  php_worker:
-    build: extra/docker/php/cli
-    restart: always
-    working_dir: /app
-    command: ["php", "artisan", "queue:work", "--sleep=1", "--tries=3"]
-    volumes:
-      - ./:/app/
-    depends_on:
-      - php
-
   mariadb:
     image: mariadb:10.2.14
     restart: always
@@ -51,12 +41,3 @@ services:
     restart: always
     ports:
       - 6379
-
-  mail:
-    image: miladrahimi/fake-smtp
-    restart: always
-    working_dir: /output
-    volumes:
-      - ./storage/mails:/output
-    ports:
-      - 25

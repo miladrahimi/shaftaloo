@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Morilog\Jalali\Jalalian;
+use URL;
 use View;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        URL::forceScheme('https');
+
         View::share('jd', function (Carbon $carbon): string {
             return Jalalian::fromCarbon($carbon);
         });

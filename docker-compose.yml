@@ -10,7 +10,7 @@ services:
       - ./extra/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./extra/docker/nginx/logs/:/var/log/nginx/
     ports:
-      - 80
+      - ${APP_PORT:-0}:80
     depends_on:
       - php
 

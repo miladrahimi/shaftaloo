@@ -32,7 +32,7 @@ services:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
-      - 3306
+      - ${DB_EXPOSED_PORT:-0}:3306
     volumes:
       - ./extra/docker/mariadb:/var/lib/mysql
 

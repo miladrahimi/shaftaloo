@@ -89,9 +89,9 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div class="text-center">
-                {!! $transactions->render() !!}
+                <div class="text-center">
+                    {!! $transactions->render() !!}
+                </div>
             </div>
         </div>
     </div>

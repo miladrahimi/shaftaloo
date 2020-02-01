@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class HomeController
@@ -12,14 +13,10 @@ use Auth;
 class HomeController extends Controller
 {
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function getHome()
     {
-        if (Auth::hasUser()) {
-            return redirect(route('dashboard'));
-        } else {
-            return redirect(route('auth.sign-in'));
-        }
+        return redirect(route('auth.sign-in'));
     }
 }

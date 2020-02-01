@@ -4,25 +4,28 @@
   become: true
   remote_user: root
   tasks:
-    - name: Pull the last verion of project from Github
+    - name: Pull the last verion of the project
       git:
         repo: "https://github.com/miladrahimi/shaftaloo"
         dest: "{{ remote_dir | default('/var/www/shaftaloo') }}"
 
-    - name: Create .env if not exists
+    - name: Create .env if it does not exist
       copy:
         src: "{{ remote_dir | default('/var/www/shaftaloo') }}/.env.example"
         dest: "{{ remote_dir | default('/var/www/shaftaloo') }}/.env"
         remote_src: yes
         force: no
 
-    - name: Change storage permission
+    - name: Update storage directory permission
       command: chmod -R 0777 {{ remote_dir | default('/var/apps/shaftaloo') }}/storage
 
-    - name: Change cache permission
+    - name: Update cache directory permission
       command: chmod -R 0777 {{ remote_dir | default('/var/apps/shaftaloo') }}/bootstrap/cache
 
-    - name: Run the app via docker-compose
+    - name: Stop via docker-compose
+      command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose down
+
+    - name: Start via docker-compose
       command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose up -d
 
     - name: Wait for database

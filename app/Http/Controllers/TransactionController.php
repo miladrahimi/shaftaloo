@@ -7,8 +7,13 @@ use App\Models\Transaction;
 use App\Models\User;
 use Auth;
 use DB;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Throwable;
 
 /**
  * Class TransactionController
@@ -18,7 +23,7 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function getAdd()
     {
@@ -33,8 +38,8 @@ class TransactionController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
+     * @return RedirectResponse
+     * @throws Throwable
      */
     public function postAdd(Request $request)
     {
@@ -87,8 +92,8 @@ class TransactionController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function delete(Request $request)
     {

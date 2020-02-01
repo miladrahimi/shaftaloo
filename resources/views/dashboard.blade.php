@@ -5,38 +5,28 @@
 @section('content')
     <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
 
-    <div class="row justify-content-center my-2">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">Summary</div>
-
-                <div class="card-body">
-                    <table class="table table-sm table-bordered table-striped table-responsive-sm">
-                        <thead>
-                        <tr>
-                            <th scope="col">User</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Contributions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($users as $user)
-                            <tr>
-                                <td>{{ '@' . $user->username }}</td>
-                                <td>
+    <table class="table table-sm table-bordered table-striped table-responsive-sm">
+        <thead>
+        <tr>
+            <th scope="col">User</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Contributions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($users as $user)
+            <tr>
+                <td>{{ '@' . $user->username }}</td>
+                <td>
                                     <span class="badge badge-{{ $balance_color($balances[$user->id] ?? 0) }}">
                                         {{ $balances[$user->id] ?? 0 }}
                                     </span>
-                                </td>
-                                <td>{{ $contributions[$user->id] ?? 0 }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                </td>
+                <td>{{ $contributions[$user->id] ?? 0 }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
     <div class="row justify-content-center mt-2">
         <div class="col">

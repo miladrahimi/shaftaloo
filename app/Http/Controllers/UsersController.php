@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Auth;
 use Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class UsersController
@@ -23,13 +26,13 @@ class UsersController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function postProfile(Request $request)
     {
         $this->validate($request, [
-            'password' => 'nullable|confirmed|min:6|max:16',
+            'password' => 'nullable|confirmed|min:8|max:32',
         ]);
 
         $user = User::find(Auth::id());
@@ -44,7 +47,7 @@ class UsersController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function getSignOut()
     {

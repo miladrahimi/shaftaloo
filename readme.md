@@ -1,9 +1,8 @@
 # Shaftaloo!
-Shaftaloo is a simple cost accounting web application.
 
 ## Installation
 
-To install the project on your machine:
+To run the project on your local machine:
 
 ```bash
 $ git clone https://github.com/miladrahimi/shaftaloo
@@ -19,6 +18,7 @@ $ docker-compose exec php php artisan migrate:refresh --seed
 You can deploy the project via Ansible.
 
 First create following files based on your server information:
+
 * `extra/ansible/group_vars/all.yml`
 * `extra/ansible/inventory/hosts`
 
@@ -30,7 +30,7 @@ remote_dir: /var/www/shaftaloo
 db_password: secret
 ```
 
-Sample for `hosts`:
+And sample for `hosts`:
 
 ```
 [defaults]

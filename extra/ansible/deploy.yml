@@ -28,7 +28,7 @@
     - name: Wait for database
       command: >
         docker exec shaftaloo_mariadb
-        mysqladmin ping -uroot -p{{ db_password|secret }}
+        mysqladmin ping -uroot -p{{ db_password | default('secret') }}
       register: result
       until: not result.rc
       retries: 20

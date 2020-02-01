@@ -6,6 +6,7 @@ use App\Models\Contribution;
 use App\Models\Transaction;
 use App\Models\User;
 use Auth;
+use Cache;
 use DB;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -111,11 +112,13 @@ class TransactionController extends Controller
      */
     public function getTitles()
     {
-        $titles = Transaction::select(['title'])
-            ->distinct()
-            ->orderBy('title')
-            ->get()
-            ->pluck('title');
+        $titles = Cache::remember('titles', 30 * 24 * 60 * 60, function () {
+            return Transaction::select(['title'])
+                ->distinct()
+                ->orderBy('title')
+                ->get()
+                ->pluck('title');
+        });
 
         return new JsonResponse($titles);
     }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\User;
+use Cache;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -20,33 +20,37 @@ class DashboardController extends Controller
      */
     public function getDashboard()
     {
-        $users = User::all();
+        $data = Cache::remember('dashboard', 30 * 24 * 60 * 60, function () {
+            $users = User::all();
 
-        /** @var Transaction[] $transactions */
-        $transactions = Transaction::with('contributions')->get();
-        $transactionsPaginated = Transaction::with('contributions')->latest()->paginate(10);
+            /** @var Transaction[] $transactions */
+            $transactions = Transaction::with('contributions')->get();
+            $transactionsPaginated = Transaction::with('contributions')->latest()->paginate(10);
 
-        $balances = $contributions = $purchases = [];
-        foreach ($users as $user) {
-            $balances[$user->id] = $contributions[$user->id] = 0;
-        }
-
-        foreach ($transactions as $transaction) {
-            foreach ($transaction->contributions as $contribution) {
-                $balances[$contribution->user_id] += $contribution->value;
-                $contributions[$contribution->user_id]++;
+            $balances = $contributions = $purchases = [];
+            foreach ($users as $user) {
+                $balances[$user->id] = $contributions[$user->id] = 0;
             }
 
-            isset($purchases[$transaction->user_id]) || $purchases[$transaction->user_id] = 0;
-            $purchases[$transaction->user_id]++;
-        }
+            foreach ($transactions as $transaction) {
+                foreach ($transaction->contributions as $contribution) {
+                    $balances[$contribution->user_id] += $contribution->value;
+                    $contributions[$contribution->user_id]++;
+                }
 
-        return view('dashboard', [
-            'users' => $users,
-            'transactions' => $transactionsPaginated,
-            'balances' => $balances,
-            'purchases' => $purchases,
-            'contributions' => $contributions,
-        ]);
+                isset($purchases[$transaction->user_id]) || $purchases[$transaction->user_id] = 0;
+                $purchases[$transaction->user_id]++;
+            }
+
+            return [
+                'users' => $users,
+                'transactions' => $transactionsPaginated,
+                'balances' => $balances,
+                'purchases' => $purchases,
+                'contributions' => $contributions,
+            ];
+        });
+
+        return view('dashboard', $data);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Transaction;
+use Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        Transaction::saved(function () {
+            Cache::forget('dashboard');
+            Cache::forget('titles');
+        });
     }
 }

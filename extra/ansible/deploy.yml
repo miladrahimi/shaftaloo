@@ -22,10 +22,7 @@
     - name: Update cache directory permission
       command: chmod -R 0777 {{ remote_dir | default('/var/apps/shaftaloo') }}/bootstrap/cache
 
-    - name: Stop via docker-compose
-      command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose down
-
-    - name: Start via docker-compose
+    - name: Run via docker-compose
       command: chdir={{ remote_dir | default('/var/apps/shaftaloo') }} docker-compose up -d
 
     - name: Wait for database

@@ -49,7 +49,7 @@ class DashboardController extends Controller
             ];
         });
 
-        $data['transactions'] = Transaction::with('contributions')->latest()->paginate(10);
+        $data['transactions'] = Transaction::with('contributions')->latest()->simplePaginate(10);
 
         return view('dashboard', $data);
     }

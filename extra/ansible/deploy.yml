@@ -7,12 +7,12 @@
     - name: Pull the last verion of project from Github
       git:
         repo: "https://github.com/miladrahimi/shaftaloo"
-        dest: "{{ remote_dir | default('/var/apps/shaftaloo') }}"
+        dest: "{{ remote_dir | default('/var/www/shaftaloo') }}"
 
     - name: Create .env if not exists
       copy:
-        src: "{{ remote_dir | default('/var/apps/shaftaloo') }}/.env.example"
-        dest: "{{ remote_dir | default('/var/apps/shaftaloo') }}/.env"
+        src: "{{ remote_dir | default('/var/www/shaftaloo') }}/.env.example"
+        dest: "{{ remote_dir | default('/var/www/shaftaloo') }}/.env"
         remote_src: yes
         force: no
 

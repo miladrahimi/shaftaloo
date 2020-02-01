@@ -1,5 +1,5 @@
 # Shaftaloo!
-Shaftaloo is a simple cost accounting web (backend + PWA) application.
+Shaftaloo is a simple cost accounting web application.
 
 ## Installation
 
@@ -10,6 +10,8 @@ $ git clone https://github.com/miladrahimi/shaftaloo
 $ cd shaftaloo
 $ cp .env.example .env
 $ docker-compose up -d
+$ docker-compose exec php composer install
+$ docker-compose exec php php artisan migrate:refresh --seed
 ```
 
 ## Deployment
@@ -24,7 +26,7 @@ Sample for `all.yml`:
 
 ```yaml
 ---
-remote_dir: /var/apps/shaftaloo
+remote_dir: /var/www/shaftaloo
 db_password: secret
 ```
 
@@ -41,17 +43,6 @@ Then you can run the Ansible playbook this way:
 $ cd extra/ansible
 $ ansible-playbook deploy.yml
 ```
-
-## Getting Started
-
-To create a sample user you can run seed:
-
-```bash
-php artisan db:seed
-```
-
-Then visit the app url in your web browser and
-sign in with the displayed credentials.
 
 ## License
 [MIT License](http://opensource.org/licenses/mit-license.php)

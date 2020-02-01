@@ -25,7 +25,6 @@ class DashboardController extends Controller
 
             /** @var Transaction[] $transactions */
             $transactions = Transaction::with('contributions')->get();
-            $transactionsPaginated = Transaction::with('contributions')->latest()->paginate(10);
 
             $balances = $contributions = $purchases = [];
             foreach ($users as $user) {
@@ -44,12 +43,13 @@ class DashboardController extends Controller
 
             return [
                 'users' => $users,
-                'transactions' => $transactionsPaginated,
                 'balances' => $balances,
                 'purchases' => $purchases,
                 'contributions' => $contributions,
             ];
         });
+
+        $data['transactions'] = Transaction::with('contributions')->latest()->paginate(10);
 
         return view('dashboard', $data);
     }

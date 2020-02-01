@@ -42,7 +42,9 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Transactions</a>
+            <a class="nav-link active" href="#">
+                Transactions <span class="badge badge-primary">{{ request('page', 1) }}</span>
+            </a>
         </li>
     </ul>
 

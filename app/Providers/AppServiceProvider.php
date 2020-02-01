@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
@@ -28,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceScheme('https');
+        if (env('APP_ENV') == 'production') {
+            URL::forceScheme('https');
+        }
 
         View::share('jd', function (Carbon $carbon): string {
             return Jalalian::fromCarbon($carbon);

@@ -41,7 +41,7 @@
       command: "docker exec shaftaloo_php php artisan down"
 
     - name: Run migrations
-      command: "docker exec shaftaloo_php php artisan migrate"
+      command: "docker exec shaftaloo_php php artisan migrate --force"
 
     - name: Up the app
       command: "docker exec shaftaloo_php php artisan up"

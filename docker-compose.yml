@@ -3,6 +3,7 @@ version: '3'
 services:
   nginx:
     image: nginx:1.15.5-alpine
+    container_name: shaftaloo_nginx
     restart: always
     working_dir: /app
     volumes:
@@ -17,6 +18,7 @@ services:
   php:
     build: extra/docker/php/fpm
     restart: always
+    container_name: shaftaloo_php
     working_dir: /app
     volumes:
       - ./:/app
@@ -27,6 +29,7 @@ services:
 
   mariadb:
     image: mariadb:10.2.14
+    container_name: shaftaloo_mariadb
     restart: always
     environment:
       - MYSQL_DATABASE=${DB_DATABASE}
@@ -39,5 +42,6 @@ services:
   redis:
     image: redis:5.0-alpine3.8
     restart: always
+    container_name: shaftaloo_redis
     ports:
       - 6379

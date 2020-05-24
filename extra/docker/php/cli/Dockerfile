@@ -44,8 +44,8 @@ RUN mkdir -p /root/.ssh ${APP_INSTALL_DIR} \
         -e "s/memory_limit = .*/memory_limit = 512M/g" \
         /etc/php7/php.ini \
     # Configure SSH known_hosts
-    && ssh-keyscan -H github.com gitlab.com gitlab.snapp.ir >> /root/.ssh/known_hosts
+    && ssh-keyscan -H github.com gitlab.com >> /root/.ssh/known_hosts
 
-COPY assets/root/ /
+COPY assets/root /
 
 WORKDIR ${APP_INSTALL_DIR}

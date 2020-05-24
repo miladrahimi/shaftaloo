@@ -13,6 +13,7 @@ RUN apk --no-cache --update add \
         php7-ctype \
         php7-curl \
         php7-dom \
+        php7-fileinfo \
         php7-gd \
         php7-gettext \
         php7-iconv \
@@ -44,6 +45,6 @@ RUN mkdir -p /root/.ssh ${APP_INSTALL_DIR} \
         -e "s/memory_limit = .*/memory_limit = 512M/g" \
         /etc/php7/php.ini \
     # Configure SSH known_hosts
-    && ssh-keyscan -H github.com gitlab.com gitlab.snapp.ir >> /root/.ssh/known_hosts
+    && ssh-keyscan -H github.com gitlab.com >> /root/.ssh/known_hosts
 
 WORKDIR ${APP_INSTALL_DIR}

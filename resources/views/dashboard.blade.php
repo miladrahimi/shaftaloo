@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($activeUsers as $user)
                         <tr>
                             <td>{{ '@' . $user->username }}</td>
                             <td>

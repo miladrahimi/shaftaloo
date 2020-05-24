@@ -21,10 +21,11 @@ class DashboardController extends Controller
     public function getDashboard()
     {
         $data = Cache::remember('dashboard', 30 * 24 * 60 * 60, function () {
-            $users = User::withTrashed()->all();
+            $users = User::withTrashed()->get();
+            $activeUsers = User::all();
 
             /** @var Transaction[] $transactions */
-            $transactions = Transaction::with('contributions')->get();
+            $transactions = Transaction::with(['contributions', 'contributions.user'])->get();
 
             $balances = $contributions = $purchases = [];
             foreach ($users as $user) {
@@ -43,6 +44,7 @@ class DashboardController extends Controller
 
             return [
                 'users' => $users,
+                'activeUsers' => $activeUsers,
                 'balances' => $balances,
                 'purchases' => $purchases,
                 'contributions' => $contributions,

@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function getDashboard()
     {
         $data = Cache::remember('dashboard', 30 * 24 * 60 * 60, function () {
-            $users = User::all();
+            $users = User::withTrashed()->all();
 
             /** @var Transaction[] $transactions */
             $transactions = Transaction::with('contributions')->get();

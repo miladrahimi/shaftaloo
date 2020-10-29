@@ -1,8 +1,8 @@
-FROM dockage/php:7.2.10-cli-alpine3.8
+FROM dockage/php:7.2.10-fpm-alpine3.8
 
 ENV APP_INSTALL_DIR="/app"
 
-RUN apk --no-cache --update add \
+RUN apk --no-cache add \
         composer \
         confd@testing \
         file \
@@ -13,6 +13,7 @@ RUN apk --no-cache --update add \
         php7-ctype \
         php7-curl \
         php7-dom \
+        php7-fileinfo \
         php7-gd \
         php7-gettext \
         php7-iconv \
@@ -39,13 +40,11 @@ RUN mkdir -p /root/.ssh ${APP_INSTALL_DIR} \
     # Configure PHP
     && sed -i -e "s/;date.timezone =.*/date.timezone = UTC/g" \
         -e "s/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/g" \
-        -e "s/upload_max_filesize = .*/upload_max_filesize = 100M/g" \
-        -e "s/post_max_size = .*/post_max_size = 128M/g" \
-        -e "s/memory_limit = .*/memory_limit = 512M/g" \
+        -e "s/upload_max_filesize = .*/upload_max_filesize = 0/g" \
+        -e "s/post_max_size = .*/post_max_size = 0/g" \
+        -e "s/memory_limit = .*/memory_limit = -1/g" \
         /etc/php7/php.ini \
     # Configure SSH known_hosts
     && ssh-keyscan -H github.com gitlab.com >> /root/.ssh/known_hosts
-
-COPY assets/root /
 
 WORKDIR ${APP_INSTALL_DIR}

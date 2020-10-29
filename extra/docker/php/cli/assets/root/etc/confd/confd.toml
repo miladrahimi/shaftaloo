@@ -1,7 +1,0 @@
-backend = "env"
-confdir = "/etc/confd"
-interval = 600
-log-level = "info"
-noop = false
-sync-only = false
-watch = false

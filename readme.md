@@ -19,8 +19,8 @@ You can deploy the project via Ansible.
 
 First create following files based on your server information:
 
-* `extra/ansible/group_vars/all.yml`
-* `extra/ansible/inventory/hosts`
+* `.ansible/group_vars/all.yml`
+* `.ansible/inventory/hosts`
 
 Sample for `all.yml`:
 

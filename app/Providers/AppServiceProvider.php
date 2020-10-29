@@ -6,6 +6,7 @@ use App;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
 use URL;
 use View;
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (env('APP_ENV') == 'production') {
+        if (Str::startsWith(env('APP_URL'), 'https')) {
             URL::forceScheme('https');
         }
 

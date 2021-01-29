@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <a href="{{ route('transactions.add') }}" class="btn btn-primary">Add Transaction</a>
+            <a href="{{ route('transactions.add') }}" class="btn btn-primary btn-block">Add Transaction</a>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" href="#">
-                Transactions <span class="badge badge-primary">{{ request('page', 1) }}</span>
+                Transactions <span class="badge badge-secondary">{{ request('page', 1) }}</span>
             </a>
         </li>
     </ul>

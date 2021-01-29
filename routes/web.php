@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\UsersController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/auth/sign-in', [SignInController::class, 'show'])
@@ -24,10 +25,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'users'], function () {
-        Route::get('profile', 'UsersController@getProfile')
-            ->name('users.profile');
-        Route::post('profile', 'UsersController@postProfile');
-        Route::get('sign-out', 'UsersController@getSignOut')
+        Route::get('profile', [UsersController::class, 'showProfile'])
+            ->name('users.profile.show');
+        Route::post('profile', [UsersController::class, 'updateProfile'])
+            ->name('users.profile.update');
+        Route::get('sign-out', [UsersController::class, 'doSignOut'])
             ->name('users.sign-out');
     });
 });

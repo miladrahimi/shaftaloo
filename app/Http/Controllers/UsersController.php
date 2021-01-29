@@ -10,14 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
 
-/**
- * Class UsersController
- *
- * @package App\Http\Controllers
- */
 class UsersController extends Controller
 {
-    public function getProfile()
+    public function showProfile()
     {
         return view('users-profile', [
             'u' => Auth::user(),
@@ -29,7 +24,7 @@ class UsersController extends Controller
      * @return RedirectResponse
      * @throws ValidationException
      */
-    public function postProfile(Request $request)
+    public function updateProfile(Request $request)
     {
         $this->validate($request, [
             'password' => 'nullable|confirmed|min:8|max:32',
@@ -49,7 +44,7 @@ class UsersController extends Controller
     /**
      * @return RedirectResponse|Redirector
      */
-    public function getSignOut()
+    public function doSignOut()
     {
         if (Auth::hasUser()) {
             Auth::logout();

@@ -15,7 +15,7 @@
     <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">
         <img src="{{ asset('img/logo.png') }}" width="20" height="auto" alt="Logo">
     </a>
-    <a class="btn btn-outline-primary" href="{{ route('users.profile') }}">
+    <a class="btn btn-outline-primary" href="{{ route('users.profile.show') }}">
         <i class="fas fa-user"></i>
     </a>
     <a class="btn btn-outline-danger" href="{{ route('users.sign-out') }}">

@@ -5,36 +5,28 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col">
-            <div class="card">
-                <div class="card-header">My Profile</div>
+            @include('_alerts')
+            <form method="post" action="{{ route('users.profile.update') }}">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" class="form-control" value="{{ $u->username }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" name="password" class="form-control" placeholder="New password">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password_confirmation" class="form-control"
+                           placeholder="Confirm new password">
+                </div>
 
-                <form class="card-body" method="post" action="{{ route('users.profile') }}">
-                    @include('_alerts')
+                <hr>
 
-                    <p>Username: <span class="text-primary">{{ '@' . $u->username }}</span></p>
-
-                    <hr>
-
-                    <p>Fill the password fields to change your password.</p>
-
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="New password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password_confirmation" class="form-control"
-                               placeholder="Confirm new password">
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Update">
-                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Dashboard</a>
-                    </div>
-
-                    {{ csrf_field() }}
-                </form>
-            </div>
+                <div class="form-group">
+                    @csrf
+                    <input type="submit" class="btn btn-primary btn-block" value="Update">
+                </div>
+            </form>
         </div>
     </div>
 @endsection

@@ -22,5 +22,5 @@ jobs:
           cd  ${{ secrets.PATH }}
           git reset --hard HEAD^
           git pull
-          docker exec shaftaloo_php composer install
-          docker exec shaftaloo_php php artisan migrate --force
+          docker exec shaftaloo_php_1 composer install
+          docker exec shaftaloo_php_1 php artisan migrate --force

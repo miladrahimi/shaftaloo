@@ -22,7 +22,7 @@ class TransactionController extends Controller
             return $user->id == Auth::id();
         })->prepend(Auth::user());
 
-        return view('transactions-add', [
+        return view('transactions-create', [
             'users' => $users
         ]);
     }

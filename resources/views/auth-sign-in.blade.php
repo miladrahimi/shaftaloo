@@ -11,46 +11,23 @@
 
 <div class="container pt-5">
     <div class="row justify-content-center">
-        <div class="col col-md-4">
-            <div class="card">
-                <div class="card-header">Shaftaloo!</div>
-
-                <form class="card-body" method="post" action="{{ route('auth.sign-in.do') }}">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="pl-3 m-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            <ul class="pl-3 m-0">
-                                <li>{{ session('error') }}</li>
-                            </ul>
-                        </div>
-                    @endif
-
-                    {{ csrf_field() }}
-
-                    <div class="form-group">
-                        <input type="text" name="username" class="form-control" placeholder="Username"
-                               value="{{ old('username') }}" title="Username">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Password"
-                               title="Password">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-block btn-primary" value="Sign in">
-                    </div>
-                </form>
-            </div>
+        <div class="col col-md-4 text-center">
+            <img src="{{ asset('img/logo.png') }}" width="64" height="auto" alt="Logo" class="mb-3">
+            @include('_alerts')
+            <form method="post" action="{{ route('auth.sign-in.do') }}">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Username"
+                           value="{{ old('username') }}" title="Username">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Password"
+                           title="Password">
+                </div>
+                <div class="form-group">
+                    @csrf
+                    <input type="submit" class="btn btn-block btn-primary" value="Sign in">
+                </div>
+            </form>
         </div>
     </div>
 </div>

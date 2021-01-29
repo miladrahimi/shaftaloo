@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Shaftaloo! Sign in</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="icon" href="{{ asset('favicon.ico?md5=ffc8beb2a018b4aca71c3ab08d8fe540') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ fh(asset('vendor/bootstrap-4.6.0/css/bootstrap.min.css')) }}">
+    <link rel="icon" href="{{ fh(asset('img/logo.png')) }}">
 </head>
 <body>
 
@@ -16,7 +15,7 @@
             <div class="card">
                 <div class="card-header">Shaftaloo!</div>
 
-                <form class="card-body" method="post" action="{{ route('auth.sign-in') }}">
+                <form class="card-body" method="post" action="{{ route('auth.sign-in.do') }}">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="pl-3 m-0">
@@ -39,32 +38,26 @@
 
                     <div class="form-group">
                         <input type="text" name="username" class="form-control" placeholder="Username"
-                               value="{{ old('username') }}">
+                               value="{{ old('username') }}" title="Username">
                     </div>
 
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Password"
+                               title="Password">
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Sign in">
+                        <input type="submit" class="btn btn-block btn-primary" value="Sign in">
                     </div>
                 </form>
-
-                <div class="card-footer text-muted">&copy; {{ date('Y ') . config('app.name') }}</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
+<script src="{{ asset('vendor/jquery/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ asset('vendor/popper-1/popper.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap-4.6.0/js/bootstrap.min.js') }}"></script>
 
 </body>
 </html>

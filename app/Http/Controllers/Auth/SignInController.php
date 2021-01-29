@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -9,27 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-/**
- * Class AuthController
- *
- * @package App\Http\Controllers
- */
-class AuthController extends Controller
+class SignInController extends Controller
 {
-    /**
-     * @return Factory|View
-     */
-    public function getSignIn()
+    public function show()
     {
         return view('auth-sign-in');
     }
 
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     * @throws ValidationException
-     */
-    public function postSignIn(Request $request)
+    public function do(Request $request)
     {
         $this->validate($request, [
             'username' => ['required'],

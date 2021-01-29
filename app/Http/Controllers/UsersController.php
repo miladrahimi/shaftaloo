@@ -55,6 +55,6 @@ class UsersController extends Controller
             Auth::logout();
         }
 
-        return redirect(route('auth.sign-in'));
+        return redirect(route('auth.sign-in.show'));
     }
 }

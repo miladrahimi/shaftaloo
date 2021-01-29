@@ -1,50 +1,27 @@
-FROM dockage/php:7.2.10-fpm-alpine3.8
+FROM php:7.4-fpm
 
-ENV APP_INSTALL_DIR="/app"
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    libicu-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    git \
+    zip \
+    unzip
 
-RUN apk --no-cache add \
-        composer \
-        confd@testing \
-        file \
-        git \
-        openssh-client \
-        openssl \
-        php7-bcmath \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-fileinfo \
-        php7-gd \
-        php7-gettext \
-        php7-iconv \
-        php7-intl \
-        php7-json \
-        php7-mbstring \
-        php7-mcrypt \
-        php7-mysqli \
-        php7-pdo_mysql \
-        php7-phar \
-        php7-session \
-        php7-simplexml \
-        php7-soap \
-        php7-tokenizer \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-zip \
-        php7-zlib \
-        php7-redis \
-        php7-xdebug
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /root/.ssh ${APP_INSTALL_DIR} \
-    # Configure PHP
-    && sed -i -e "s/;date.timezone =.*/date.timezone = UTC/g" \
-        -e "s/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/g" \
-        -e "s/upload_max_filesize = .*/upload_max_filesize = 0/g" \
-        -e "s/post_max_size = .*/post_max_size = 0/g" \
-        -e "s/memory_limit = .*/memory_limit = -1/g" \
-        /etc/php7/php.ini \
-    # Configure SSH known_hosts
-    && ssh-keyscan -H github.com gitlab.com >> /root/.ssh/known_hosts
+# Install PHP extensions
+RUN pecl install redis
+RUN docker-php-ext-enable redis
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl
 
-WORKDIR ${APP_INSTALL_DIR}
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /app

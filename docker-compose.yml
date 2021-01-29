@@ -29,7 +29,7 @@ services:
     image: ${APP_NAME:-app}_php
     restart: always
     working_dir: /app
-    command: /bin/sh -c "/app/.docker/php/fpm/cron.sh"
+    command: /bin/sh -c "/app/.docker/php/cron.sh"
     volumes:
       - ./:/app/
     depends_on:

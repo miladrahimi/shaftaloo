@@ -68,7 +68,7 @@
                             <td>{{ $transaction->id }}</td>
                             <td>{{ $transaction->title }}</td>
                             <td>{{ '@' . $transaction->user->username }}</td>
-                            <td>{!! str_replace(' ', '<br>', $jd($transaction->created_at)) !!}</td>
+                            <td>{!! str_replace(' ', '<br>', jDate($transaction->created_at)) !!}</td>
                             <td>
                                 @foreach($transaction->contributions as $contribution)
                                     <span class="badge badge-{{ $balance_color($contribution->value) }}">

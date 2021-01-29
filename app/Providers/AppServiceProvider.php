@@ -5,6 +5,7 @@ namespace App\Providers;
 use App;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
@@ -30,9 +31,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (Str::startsWith(env('APP_URL'), 'https')) {
+        if (Str::startsWith(config('app.url'), 'https')) {
             URL::forceScheme('https');
         }
+
+        Paginator::useBootstrap();
+
+        require(__DIR__ . '/../Services/helpers.php');
 
         View::share('jd', function (Carbon $carbon): string {
             return Jalalian::fromCarbon($carbon);

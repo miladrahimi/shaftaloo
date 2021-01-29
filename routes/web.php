@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UsersController;
 
 Route::group(['middleware' => 'guest'], function () {
@@ -11,20 +13,21 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', 'DashboardController@getDashboard')
+    Route::get('/', [DashboardController::class, 'show'])
         ->name('dashboard');
 
-    Route::group(['prefix' => 'transactions'], function () {
-        Route::get('add', 'TransactionController@getAdd')
-            ->name('transactions.add');
-        Route::post('add', 'TransactionController@postAdd');
-        Route::delete('delete', 'TransactionController@delete')
+    Route::group(['prefix' => '/transactions'], function () {
+        Route::get('/create', [TransactionController::class, 'create'])
+            ->name('transactions.create');
+        Route::post('/', [TransactionController::class, 'store'])
+            ->name('transactions.store');
+        Route::delete('/', [TransactionController::class, 'delete'])
             ->name('transactions.delete');
-        Route::get('titles', 'TransactionController@getTitles')
+        Route::get('/titles', [TransactionController::class, 'titles'])
             ->name('transactions.titles');
     });
 
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => '/users'], function () {
         Route::get('profile', [UsersController::class, 'showProfile'])
             ->name('users.profile.show');
         Route::post('profile', [UsersController::class, 'updateProfile'])

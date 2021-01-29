@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <a href="{{ route('transactions.add') }}" class="btn btn-primary btn-block">Add Transaction</a>
+            <a href="{{ route('transactions.create') }}" class="btn btn-primary btn-block">Add Transaction</a>
         </div>
     </div>
 

@@ -9,24 +9,14 @@ use Auth;
 use Cache;
 use DB;
 use Exception;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Throwable;
 
-/**
- * Class TransactionController
- *
- * @package App\Http\Controllers
- */
 class TransactionController extends Controller
 {
-    /**
-     * @return Factory|View
-     */
-    public function getAdd()
+    public function create()
     {
         $users = User::orderBy('username')->get()->reject(function (User $user) {
             return $user->id == Auth::id();
@@ -42,7 +32,7 @@ class TransactionController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function postAdd(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'title' => ['required'],
@@ -107,10 +97,7 @@ class TransactionController extends Controller
         return back();
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function getTitles()
+    public function titles()
     {
         $titles = Cache::remember('titles', 30 * 24 * 60 * 60, function () {
             return Transaction::select(['title'])

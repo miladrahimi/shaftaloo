@@ -9,15 +9,16 @@
             <form method="post" action="{{ route('users.profile.update') }}">
                 <div class="form-group">
                     <label>Username:</label>
-                    <input type="text" class="form-control" value="{{ $u->username }}" readonly>
+                    <input type="text" class="form-control" value="{{ $u->username }}" readonly title="Username">
                 </div>
                 <div class="form-group">
                     <label>Password:</label>
-                    <input type="password" name="password" class="form-control" placeholder="New password">
+                    <input type="password" name="password" class="form-control" placeholder="New password"
+                           title="Password">
                 </div>
                 <div class="form-group">
                     <input type="password" name="password_confirmation" class="form-control"
-                           placeholder="Confirm new password">
+                           placeholder="Confirm new password" title="Confirm new password">
                 </div>
 
                 <hr>

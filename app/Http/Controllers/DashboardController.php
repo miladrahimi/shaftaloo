@@ -5,20 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\User;
 use Cache;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
 
-/**
- * Class DashboardController
- *
- * @package App\Http\Controllers
- */
 class DashboardController extends Controller
 {
-    /**
-     * @return Factory|View
-     */
-    public function getDashboard()
+    public function show()
     {
         $data = Cache::remember('dashboard', 30 * 24 * 60 * 60, function () {
             $users = User::withTrashed()->get();

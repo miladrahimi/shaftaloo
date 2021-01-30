@@ -12,13 +12,13 @@
 <body>
 
 <header class="bg-white border-bottom shadow-sm text-center py-2 mb-3">
-    <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary px-4">
+    <a href="{{ route('transactions.index') }}" class="btn btn-outline-secondary px-4">
         <img src="{{ asset('img/logo.png') }}" width="20" height="auto" alt="Logo">
     </a>
-    <a class="btn btn-outline-primary px-4" href="{{ route('users.profile.show') }}">
+    <a class="btn btn-outline-primary px-4" href="{{ route('profile.show') }}">
         <i class="fas fa-user"></i>
     </a>
-    <a class="btn btn-outline-danger px-4" href="{{ route('users.sign-out') }}">
+    <a class="btn btn-outline-danger px-4" href="{{ route('auth.sign-out.do') }}">
         <i class="fas fa-power-off"></i>
     </a>
 </header>

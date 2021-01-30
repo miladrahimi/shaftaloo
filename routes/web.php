@@ -1,38 +1,42 @@
 <?php
 
 use App\Http\Controllers\Auth\SignInController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Auth\SignOutController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\ProfileController;
 
-Route::group(['middleware' => 'guest'], function () {
-    Route::get('/auth/sign-in', [SignInController::class, 'show'])
+Route::group(['middleware' => 'guest', 'prefix' => 'auth'], function () {
+    Route::get('/sign-in', [SignInController::class, 'show'])
         ->name('auth.sign-in.show');
-    Route::post('/auth/sign-in', [SignInController::class, 'do'])
+    Route::post('/sign-in', [SignInController::class, 'do'])
         ->name('auth.sign-in.do');
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [DashboardController::class, 'show'])
-        ->name('dashboard');
+    Route::get('/', [HomeController::class, 'show'])
+        ->name('home');
+
+    Route::get('/auth/sign-out', [SignOutController::class, 'do'])
+        ->name('auth.sign-out.do');
 
     Route::group(['prefix' => '/transactions'], function () {
-        Route::get('/create', [TransactionController::class, 'create'])
+        Route::get('/', [TransactionsController::class, 'index'])
+            ->name('transactions.index');
+        Route::get('/create', [TransactionsController::class, 'create'])
             ->name('transactions.create');
-        Route::post('/', [TransactionController::class, 'store'])
+        Route::post('/', [TransactionsController::class, 'store'])
             ->name('transactions.store');
-        Route::delete('/', [TransactionController::class, 'delete'])
+        Route::delete('/', [TransactionsController::class, 'delete'])
             ->name('transactions.delete');
-        Route::get('/titles', [TransactionController::class, 'titles'])
+        Route::get('/titles', [TransactionsController::class, 'titles'])
             ->name('transactions.titles');
     });
 
-    Route::group(['prefix' => '/users'], function () {
-        Route::get('profile', [UsersController::class, 'showProfile'])
-            ->name('users.profile.show');
-        Route::post('profile', [UsersController::class, 'updateProfile'])
-            ->name('users.profile.update');
-        Route::get('sign-out', [UsersController::class, 'doSignOut'])
-            ->name('users.sign-out');
+    Route::group(['prefix' => '/profile'], function () {
+        Route::get('/', [ProfileController::class, 'show'])
+            ->name('profile.show');
+        Route::post('/', [ProfileController::class, 'update'])
+            ->name('profile.update');
     });
 });

@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ '@' . $user->username }}</td>
                             <td>
-                            <span class="badge badge-{{ $balance_color($balances[$user->id] ?? 0) }}">
+                            <span class="badge badge-{{ balance_color($balances[$user->id] ?? 0) }}">
                                 {{ $balances[$user->id] ?? 0 }}
                             </span>
                             </td>
@@ -75,7 +75,7 @@
                             <td>{!! str_replace(' ', '<br>', jDate($transaction->created_at)) !!}</td>
                             <td>
                                 @foreach($transaction->contributions as $contribution)
-                                    <span class="badge badge-{{ $balance_color($contribution->value) }}">
+                                    <span class="badge badge-{{ balance_color($contribution->value) }}">
                                             {{ '@' . $contribution->user->username }}:{{ $contribution->value }}
                                         </span>
                                 @endforeach

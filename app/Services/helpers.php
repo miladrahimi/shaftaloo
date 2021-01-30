@@ -110,13 +110,3 @@ function balance_color(int $balance)
         return 'light';
     }
 }
-
-/**
- * @param int $id
- * @return User
- */
-function user_from_id(int $id): User
-{
-    return User::findOrFail($id);
-}
-

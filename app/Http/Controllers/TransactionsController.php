@@ -6,7 +6,6 @@ use App\Models\Contribution;
 use App\Models\Transaction;
 use App\Models\User;
 use Auth;
-use Cache;
 use DB;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -14,15 +13,48 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Throwable;
 
-class TransactionController extends Controller
+class TransactionsController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+
+        /** @var Transaction[] $transactions */
+        $transactions = Transaction::with(['contributions', 'contributions.user'])->get();
+
+        $balances = $contributions = $purchases = [];
+        foreach (User::withTrashed()->get() as $user) {
+            $balances[$user->id] = $contributions[$user->id] = 0;
+        }
+
+        foreach ($transactions as $transaction) {
+            foreach ($transaction->contributions as $contribution) {
+                $balances[$contribution->user_id] += $contribution->value;
+                $contributions[$contribution->user_id]++;
+            }
+
+            isset($purchases[$transaction->user_id]) || $purchases[$transaction->user_id] = 0;
+            $purchases[$transaction->user_id]++;
+        }
+
+        $transactions = Transaction::with('contributions')->latest()->simplePaginate(10);
+
+        return view('transactions.index', [
+            'users' => $users,
+            'balances' => $balances,
+            'purchases' => $purchases,
+            'contributions' => $contributions,
+            'transactions' => $transactions,
+        ]);
+    }
+
     public function create()
     {
         $users = User::orderBy('username')->get()->reject(function (User $user) {
             return $user->id == Auth::id();
         })->prepend(Auth::user());
 
-        return view('transactions-create', [
+        return view('transactions.create', [
             'users' => $users
         ]);
     }
@@ -99,13 +131,11 @@ class TransactionController extends Controller
 
     public function titles()
     {
-        $titles = Cache::remember('titles', 30 * 24 * 60 * 60, function () {
-            return Transaction::select(['title'])
-                ->distinct()
-                ->orderBy('title')
-                ->get()
-                ->pluck('title');
-        });
+        $titles = Transaction::select(['title'])
+            ->distinct()
+            ->orderBy('title')
+            ->get()
+            ->pluck('title');
 
         return new JsonResponse($titles);
     }

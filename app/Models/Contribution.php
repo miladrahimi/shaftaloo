@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Contribution
@@ -11,25 +15,25 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $transaction_id
  * @property int $user_id
  * @property int $value
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Transaction $transaction
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereTransactionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contribution whereValue($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Transaction $transaction
+ * @property-read User $user
+ * @method static Builder|Contribution newModelQuery()
+ * @method static Builder|Contribution newQuery()
+ * @method static Builder|Contribution query()
+ * @method static Builder|Contribution whereCreatedAt($value)
+ * @method static Builder|Contribution whereId($value)
+ * @method static Builder|Contribution whereTransactionId($value)
+ * @method static Builder|Contribution whereUpdatedAt($value)
+ * @method static Builder|Contribution whereUserId($value)
+ * @method static Builder|Contribution whereValue($value)
+ * @mixin Eloquent
  */
 class Contribution extends Model
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -37,7 +41,7 @@ class Contribution extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function transaction()
     {

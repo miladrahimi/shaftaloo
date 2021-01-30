@@ -7,14 +7,13 @@ use Auth;
 use Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
 
-class UsersController extends Controller
+class ProfileController extends Controller
 {
-    public function showProfile()
+    public function show()
     {
-        return view('users-profile', [
+        return view('profile.show', [
             'u' => Auth::user(),
         ]);
     }
@@ -24,7 +23,7 @@ class UsersController extends Controller
      * @return RedirectResponse
      * @throws ValidationException
      */
-    public function updateProfile(Request $request)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'password' => 'nullable|confirmed|min:8|max:32',
@@ -39,17 +38,5 @@ class UsersController extends Controller
         $user->save();
 
         return back()->with('success', 'Your profile updated.');
-    }
-
-    /**
-     * @return RedirectResponse|Redirector
-     */
-    public function doSignOut()
-    {
-        if (Auth::hasUser()) {
-            Auth::logout();
-        }
-
-        return redirect(route('auth.sign-in.show'));
     }
 }

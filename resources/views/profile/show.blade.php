@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col">
             @include('_alerts')
-            <form method="post" action="{{ route('users.profile.update') }}">
+            <form method="post" action="{{ route('profile.update') }}">
                 <div class="form-group">
                     <label>Username:</label>
                     <input type="text" class="form-control" value="{{ $u->username }}" readonly title="Username">

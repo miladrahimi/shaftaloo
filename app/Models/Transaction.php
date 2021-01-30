@@ -2,7 +2,13 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Transaction
@@ -10,26 +16,25 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property string $title
- * @property int|null $archive_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contribution[] $contributions
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereArchiveId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Contribution[] $contributions
+ * @property-read int|null $contributions_count
+ * @property-read User $user
+ * @method static Builder|Transaction newModelQuery()
+ * @method static Builder|Transaction newQuery()
+ * @method static Builder|Transaction query()
+ * @method static Builder|Transaction whereCreatedAt($value)
+ * @method static Builder|Transaction whereId($value)
+ * @method static Builder|Transaction whereTitle($value)
+ * @method static Builder|Transaction whereUpdatedAt($value)
+ * @method static Builder|Transaction whereUserId($value)
+ * @mixin Eloquent
  */
 class Transaction extends Model
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -37,7 +42,7 @@ class Transaction extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function contributions()
     {

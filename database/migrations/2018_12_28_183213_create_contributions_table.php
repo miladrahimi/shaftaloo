@@ -14,21 +14,11 @@ class CreateContributionsTable extends Migration
     public function up()
     {
         Schema::create('contributions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('transaction_id');
-            $table->unsignedInteger('user_id');
+            $table->id();
+            $table->foreignId('transaction_id');
+            $table->foreignId('user_id');
             $table->integer('value');
             $table->timestamps();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('transaction_id')
-                ->references('id')
-                ->on('transactions')
-                ->onDelete('cascade');
         });
     }
 

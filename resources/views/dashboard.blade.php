@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($activeUsers as $user)
+                    @foreach($users as $user)
                         <tr>
                             <td>{{ '@' . $user->username }}</td>
                             <td>
@@ -64,10 +64,14 @@
                     </thead>
                     <tbody>
                     @foreach($transactions as $transaction)
-                        <tr>
+                        <tr class="{{ $transaction->user_id ? '' : 'bg-secondary' }}">
                             <td>{{ $transaction->id }}</td>
                             <td>{{ $transaction->title }}</td>
-                            <td>{{ '@' . $transaction->user->username }}</td>
+                            @if($transaction->user_id)
+                                <td>{{ '@' . $transaction->user->username }}</td>
+                            @else
+                                <td>@system</td>
+                            @endif
                             <td>{!! str_replace(' ', '<br>', jDate($transaction->created_at)) !!}</td>
                             <td>
                                 @foreach($transaction->contributions as $contribution)

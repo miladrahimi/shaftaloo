@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         foreach (['milad', 'mehdi', 'farshad', 'shirzad'] as $username) {
             $user = new User();
             $user->username = $username;
-            $user->password = bcrypt('secret');
+            $user->password = Hash::make('secret');
             $user->save();
         }
     }

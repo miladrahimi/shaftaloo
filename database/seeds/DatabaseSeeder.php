@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,10 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         foreach (['milad', 'mehdi', 'farshad', 'shirzad'] as $username) {
-            $user = new \App\Models\User();
+            $user = new User();
             $user->username = $username;
             $user->password = bcrypt('secret');
-            $user->is_active = 1;
             $user->save();
         }
     }
